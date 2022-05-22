@@ -30,14 +30,23 @@
                 </a>
                 <span>
                     @if (Route::has('login'))
-                        <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                        <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block" style="display: flex">
                             @auth
-                                <a href="{{ url('/dashboard') }}" class="btn btn-secondary">Dashboard</a>
+                                <a href="{{ url('/dashboard') }}" class="btn btn-secondary me-1">Dashboard</a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+
+                                    <a class="btn btn-secondary me-1" href="{{route('logout')}}"
+                                                           onclick="event.preventDefault();
+                                                        this.closest('form').submit();">
+                                        Logout
+                                    </a>
+                                </form>
                             @else
-                                <a href="{{ route('login') }}" class="btn btn-primary">Log in</a>
+                                <a href="{{ route('login') }}" class="btn btn-primary me-1">Log in</a>
 
                                 @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="btn btn-secondary">Register</a>
+                                    <a href="{{ route('register') }}" class="btn btn-secondary me-1">Register</a>
                                 @endif
                             @endauth
                         </div>
@@ -59,5 +68,6 @@
             @endif
 
         </nav>
+        <h1 class="text-center">World Wide News</h1>
     </body>
 </html>
