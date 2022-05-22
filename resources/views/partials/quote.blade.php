@@ -1,8 +1,8 @@
 <div class="container p-3">
-    <img src="{{ URL::to('/assets/logo.svg')}}" style="width: 5rem"/>
+    <img src="{{ url('/assets/logo.svg')}}" style="width: 5rem"/>
     <div class="container my-auto align-items-center pe-5">
         <div class="text-end p-5">
-            <img src="{{ URL::to('/assets/sublogo.svg')}}" style="width: 5rem"/>
+            <img src="{{ url('/assets/sublogo.svg')}}" style="width: 5rem"/>
         </div>
         <div>
             <h1 class="text-primary" style="font-size: 6rem">&ldquo;</h1>

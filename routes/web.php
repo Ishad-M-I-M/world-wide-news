@@ -1,13 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Models\User;
-use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,13 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('welcome');
 });
 
-Route::get('/login', [AuthController::class, 'login']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::post('/login', [AuthController::class, 'postLogin'])->name('login.post');
-
-Route::get('/register', [AuthController::class, 'register']);
-
-Route::post('/register', [AuthController::class, 'postRegister']);
+require __DIR__.'/auth.php';
