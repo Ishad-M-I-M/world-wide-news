@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('contact');
             $table->string('nic');
+            $table->enum('role', ['admin', 'reporter', 'reader'])->default('reader');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

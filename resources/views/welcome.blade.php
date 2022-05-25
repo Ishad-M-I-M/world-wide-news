@@ -69,5 +69,16 @@
 
         </nav>
         <h1 class="text-center">World Wide News</h1>
+        <div class="row">
+            <div class="col-md-8" style="display: flex; flex-direction: row; flex-wrap: wrap">
+                @foreach($articles as $article)
+                    @include('components.article-card',['article'=> $article])
+                @endforeach
+            </div>
+            <div class="col-md-4 d-none d-md-block d-lg-block d-xl-block">
+                Section for display categories
+            </div>
+        </div>
+
     </body>
 </html>
