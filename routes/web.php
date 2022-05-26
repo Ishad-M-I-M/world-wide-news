@@ -27,3 +27,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'reporter'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+Route::view('/article', 'article');
+
+Route::view('/write-article','write-article');
