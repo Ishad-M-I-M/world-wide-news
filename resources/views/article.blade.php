@@ -28,17 +28,6 @@
     </style>
 </head>
 <body>
-    <!-- <div class="row" id="top-bar">
-        <div class="col-1" id="logo">
-            <img src="{{ URL::to('/assets/logo.svg') }}" alt="logo">
-        </div>
-        <div class="col-10"></div>
-        <div class="col-1" id="logout-btn">
-            <button>logout</button>
-        </div>
-        <hr>
-    </div> -->
-
     <nav class="navbar bg-light">
     <div class="container-fluid p-2 m-2">
         <a class="navbar-brand" href="/">
@@ -46,7 +35,6 @@
             World Wide News
         </a>
         <span>
-            <!-- <a class="btn btn-primary" href="/login">Homme</a> -->
             <a class="btn btn-secondary" href="/register">Logout</a>
         </span>
     </div>
@@ -69,7 +57,7 @@
     <div class="row" style="height: 100vh; width: 100vw;" id="container">
         <div class="row" id="heading">
             <div class="p-6 fs-6 col-2">
-                <a href="#" class="text-decoration-none"><span class="fs-4">&laquo; </span><span class="text-danger">Back</span></a>
+                <a href={{\Illuminate\Support\Facades\URL::previous()}} class="text-decoration-none"><span class="fs-4">&laquo; </span><span class="text-danger">Back</span></a>
             </div>
 
             <div class="p-2 col-8" >
@@ -82,7 +70,9 @@
         <div id="title" class="row">
             <div class="col-2"></div>
             <div class="col-8">
-                <h3>What one photo tells us about North Korea's neucler program</h3>
+                <h3>
+                    {{$headline}}
+                </h3>
             </div>
             <div class="col-2"></div>
         </div>
@@ -98,7 +88,9 @@
         <div class="row" id="description">
             <div class="col-2"></div>
             <div class="col-8">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium vero blanditiis voluptas accusamus voluptates est ducimus cumque officia veritatis dolor laboriosam molestiae asperiores omnis unde, voluptate voluptatum magnam dolores? Ut?</p>
+                <p>
+                    {{$report}}
+                </p>
             </div>
             <div class="col-2"></div>
         </div>

@@ -43,18 +43,6 @@
     </style>
 </head>
 <body>
-    <!-- <div class="row" id="top-bar">
-        <div class="col-1" id="logo">
-            <img src="{{ URL::to('/assets/logo.svg') }}" alt="logo">
-        </div>
-        <div class="col-10"></div>
-        <div class="col-1" id="logout-btn">
-            <button>home</button>
-            <button>logout</button>
-        </div>
-        <hr>
-    </div> -->
-
     <nav class="navbar bg-light">
     <div class="container-fluid p-2 m-2">
         <a class="navbar-brand" href="/">
