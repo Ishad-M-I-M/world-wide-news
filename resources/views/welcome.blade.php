@@ -32,7 +32,9 @@
                     @if (Route::has('login'))
                         <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block" style="display: flex">
                             @auth
-                                <a href="{{ url('/dashboard') }}" class="btn btn-secondary me-1">Dashboard</a>
+                                @if($role == 'reporter')
+                                    <a href="{{ url('/dashboard') }}" class="btn btn-secondary me-1">Dashboard</a>
+                                @endif
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
 

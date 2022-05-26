@@ -19,7 +19,7 @@ Route::get('/', function () {
         ['headline'=> 'Article Headline 2', 'report' => 'this is a test article for make sure view is rendering as expected.'],
         ['headline'=> 'Article Headline 3', 'report' => 'this is a test article for make sure view is rendering as expected.'],
         ['headline'=> 'Article Headline 4', 'report' => 'this is a test article for make sure view is rendering as expected.']];
-    return view('welcome',['articles'=> $articles]);
+    return view('welcome',['articles'=> $articles ,'role' => \Illuminate\Support\Facades\Auth::user()->role??'reader']);
 });
 
 Route::get('/dashboard', function () {
