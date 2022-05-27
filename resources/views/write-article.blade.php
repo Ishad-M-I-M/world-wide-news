@@ -7,90 +7,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @include('partials.bootstrap')
     <title>Write..</title>
-
-    <style>
-        #heading{
-            text-align: center;
-        }
-
-        p{
-            font-size: larger;
-        }
-
-        #logo, #publish-btn{
-            text-align: center;
-        }
-
-        #logout-btn{
-            align-self: center;
-            justify-self: center;
-            
-        }
-
-        .article-list{
-            text-decoration:none;
-            color: black;
-            
-        }
-        .article-list .row{
-            border-top: 1px solid grey;
-        }
-        .article-list .col-2 {
-            justify-self:center ; 
-            align-self:center;
-        }
-
-    </style>
 </head>
 <body>
-    <nav class="navbar bg-light">
-    <div class="container-fluid p-2 m-2">
-        <a class="navbar-brand" href="/">
-            <img src="{{ URL::to('/assets/logo.svg') }}" alt="" width="30" height="24">
-            World Wide News
-        </a>
-        <span>
-            <a class="btn btn-primary" href="/login">Home</a>
-            <a class="btn btn-secondary" href="/register">Logout</a>
-        </span>
-    </div>
-    @if(\Illuminate\Support\Facades\Session::has('success'))
-        <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <strong class="me-auto">World Wide News</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    {{\Illuminate\Support\Facades\Session::get('success')}}
-                </div>
-            </div>
-        <div>
-    @endif
+    <x-navigation>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
 
-    </nav>
+            <a class="btn btn-secondary me-1" href="{{route('logout')}}"
+               onclick="event.preventDefault();
+                                                        this.closest('form').submit();">
+                Logout
+            </a>
+        </form>
+    </x-navigation>
 
     <div class="row" style="height: 100vh; width: 100vw;" id="container">
-        <div class="row" id="heading">
-            <div class="p-6 fs-6 col-2">
-                <a href="#" class="text-decoration-none"><span class="fs-4">&laquo; </span><span class="text-danger">Back</span></a>
+        <div class="row text-center">
+            <div class="p-6 col-2 d-none d-md-inline d-lg-inline d-xxl-inline">
+                <x-back-link/>
             </div>
 
-            <div class="p-2 col-8" >
-                <h1>Report Your News</h1>
+            <div class="p-2 col-md-8" >
+                <h2>Report Your News</h2>
             </div>
 
-            <div class="col-2" id="publish-btn">
+            <div class="p-2 col-md-2" id="publish-btn">
                 <span>
-                    <a class="btn btn-primary" href="#">Preview</a>
-                    <a class="btn btn-success" href="#">Publish</a>
-                    <a class="btn btn-danger" href="#">Discard</a>
+                    <a class="btn btn-primary btn-sm" href="#">Preview</a>
+                    <a class="btn btn-success btn-sm" href="#">Publish</a>
+                    <a class="btn btn-danger btn-sm" href="#">Discard</a>
                 </span>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-3" style=" border-right:2px solid grey;">
+            <div class="col-3" style="border-right:2px solid grey;">
                 <div class="row">
                     <div class="col-3"></div>
                     <div class="col-9">
@@ -135,7 +86,7 @@
 
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="col-9">

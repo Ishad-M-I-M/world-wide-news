@@ -24,8 +24,7 @@
         </div>
         <div class="col-md-6 container">
             <div class="p-3 fs-5">
-                <a href="/" class="text-decoration-none"><span class="fs-2">&laquo; </span><span
-                        class="text-warning">Back</span></a>
+                <x-back-link/>
             </div>
             <div class="p-2">
                 {{ $slot }}

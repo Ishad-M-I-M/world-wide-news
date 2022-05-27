@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('headline');
             $table->string('img_path');
             $table->text('report');
-            $table->string('reporter');
+            $table->integer('reporter_id');
             $table->enum('category', ['world', 'local', 'sports']);
             $table->unsignedTinyInteger('status');
             $table->timestamp('reported_at');

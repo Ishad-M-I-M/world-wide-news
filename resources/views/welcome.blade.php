@@ -22,55 +22,35 @@
         @include('partials.bootstrap')
     </head>
     <body>
-        <nav class="navbar bg-light">
-            <div class="container-fluid p-2 m-2">
-                <a class="navbar-brand" href="/">
-                    <img src="{{ url('/assets/logo.svg') }}" alt="" width="30" height="24">
-                    World Wide News
-                </a>
-                <span>
-                    @if (Route::has('login'))
-                        <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block" style="display: flex">
-                            @auth
-                                @if($role == 'reporter')
-                                    <a href="{{ url('/dashboard') }}" class="btn btn-secondary me-1">Dashboard</a>
-                                @endif
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
+        <x-navigation>
+            @if (Route::has('login'))
+                    @auth
+                        @if($role == 'reporter')
+                            <a href="{{ url('/dashboard') }}" class="btn btn-secondary me-1">Dashboard</a>
+                        @endif
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
 
-                                    <a class="btn btn-secondary me-1" href="{{route('logout')}}"
-                                                           onclick="event.preventDefault();
+                            <a class="btn btn-secondary me-1" href="{{route('logout')}}"
+                               onclick="event.preventDefault();
                                                         this.closest('form').submit();">
-                                        Logout
-                                    </a>
-                                </form>
-                            @else
-                                <a href="{{ route('login') }}" class="btn btn-primary me-1">Log in</a>
+                                Logout
+                            </a>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-primary me-1">Log in</a>
 
-                                @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="btn btn-secondary me-1">Register</a>
-                                @endif
-                            @endauth
-                        </div>
-                    @endif
-                </span>
-            </div>
-            @if(\Illuminate\Support\Facades\Session::has('success'))
-                <div class="toast-container position-fixed bottom-0 end-0 p-3">
-                    <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="toast-header">
-                            <strong class="me-auto">World Wide News</strong>
-                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </div>
-                        <div class="toast-body">
-                            {{\Illuminate\Support\Facades\Session::get('success')}}
-                        </div>
-                    </div>
-                <div>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="btn btn-secondary me-1">Register</a>
+                        @endif
+                    @endauth
             @endif
-
-        </nav>
-        <h1 class="text-center">World Wide News</h1>
+        </x-navigation>
+            <h1 class="text-center">World Wide News</h1>
+            <div class="text-end me-5">
+                <a class="btn btn-success" href="/write-article">Report</a>
+            </div>
+        <hr>
         <div class="row">
             <div class="col-md-8" style="display: flex; flex-direction: row; flex-wrap: wrap">
                 @foreach($articles as $article)

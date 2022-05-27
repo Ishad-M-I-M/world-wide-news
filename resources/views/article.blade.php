@@ -27,37 +27,22 @@
         }
     </style>
 </head>
-<body>
-    <nav class="navbar bg-light">
-    <div class="container-fluid p-2 m-2">
-        <a class="navbar-brand" href="/">
-            <img src="{{ URL::to('/assets/logo.svg') }}" alt="" width="30" height="24">
-            World Wide News
-        </a>
-        <span>
-            <a class="btn btn-secondary" href="/register">Logout</a>
-        </span>
-    </div>
-    @if(\Illuminate\Support\Facades\Session::has('success'))
-        <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <strong class="me-auto">World Wide News</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    {{\Illuminate\Support\Facades\Session::get('success')}}
-                </div>
-            </div>
-        <div>
-    @endif
+    <x-navigation>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
 
-    </nav>
+            <a class="btn btn-secondary me-1" href="{{route('logout')}}"
+               onclick="event.preventDefault();
+                                                        this.closest('form').submit();">
+                Logout
+            </a>
+        </form>
+    </x-navigation>
 
     <div class="row" style="height: 100vh; width: 100vw;" id="container">
         <div class="row" id="heading">
             <div class="p-6 fs-6 col-2">
-                <a href={{\Illuminate\Support\Facades\URL::previous()}} class="text-decoration-none"><span class="fs-4">&laquo; </span><span class="text-danger">Back</span></a>
+               <x-back-link/>
             </div>
 
             <div class="p-2 col-8" >
