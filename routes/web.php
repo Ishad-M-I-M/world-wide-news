@@ -41,3 +41,5 @@ Route::post('/article', function (\Illuminate\Http\Request $request){
     //TODO: store article to database
     return \Illuminate\Support\Facades\Redirect::to('/')->with('success', 'Article is submitted to approval');
 })->name('article.create');
+
+Route::view('/admin-panel','admin-panel');
