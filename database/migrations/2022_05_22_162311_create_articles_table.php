@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('headline');
-            $table->string('img_path');
+            $table->string('image');
             $table->text('report');
             $table->integer('reporter_id')->references('id')->on('users');
-            $table->enum('category', ['world', 'local', 'sports']);
-            $table->unsignedTinyInteger('status');
-            $table->timestamp('reported_at');
-            $table->timestamp('published at');
+            $table->enum('category', ['Politics', 'Sports', 'Entertainment', 'Business']);
+            $table->enum('status', ['Approved', 'Pending', 'Rejected'])->default('Pending');
+            $table->timestamp('reported_at')->useCurrent();
+            $table->timestamp('published at')->nullable();
             $table->timestamps();
         });
     }
