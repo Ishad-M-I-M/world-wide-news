@@ -35,9 +35,9 @@
 
             <div class="p-2 col-md-2" id="publish-btn">
                 <span>
-                    <button class="btn btn-primary btn-sm" href="#">Preview</button>
-                    <button class="btn btn-success btn-sm" href="#" type="submit">Publish</button>
-                    <button class="btn btn-danger btn-sm" href="#">Discard</button>
+                    <button class="btn btn-primary btn-sm" type="button" id="preview" >Preview</button>
+                    <button class="btn btn-success btn-sm" type="submit">Publish</button>
+                    <button class="btn btn-danger btn-sm" type="button">Discard</button>
                 </span>
             </div>
         </div>
@@ -55,12 +55,10 @@
                     <div class="mb-3">
                         <label for="category" class="form-label">Select a category</label>
                         <select id="category" name="category" class="form-control">
-                            <option value="">Category 1</option>
-                            <option value="">Category 2</option>
-                            <option value="">Category 3</option>
-                            <option value="">Category 4</option>
-                            <option value="">Category 5</option>
-                            <option value="">Category 6</option>
+                            <option value="Politics">Politics</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Business">Business</option>
                         </select>
                     </div>
 
@@ -82,5 +80,38 @@
         </form>
     </div>
 
+    <div id="dimmer" class="bg-opacity-75 bg-black d-none" style="position: fixed; top: 0; left: 0; z-index: 100;width: 100vw; height: 100vh">
+        <div class="container bg-white rounded-2 mt-3" style="width: 60vw; height: 90vh;">
+            <div  class="text-end fs-2">
+                <span id="close-preview" style="cursor: pointer" >&Cross;</span>
+                <p class="text-start fs-5" style="margin-top: 2rem;" id="preview-category"></p>
+            </div>
+            <div class="container overflow-auto mb-3" style="width: 100%; height: 100%">
+                <h2 id="preview-headline" class="text-center"></h2>
+                <div class="text-center">
+                    <img id="preview-image" src="#" alt="image" width="200rem"/>
+                </div>
+                <div id="preview-report" class="container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("preview").addEventListener('click', ()=>{
+            const category = document.getElementById("category").value;
+            const headline = document.getElementById("headline").value;
+            const [image] = document.getElementById("media").files;
+            const report = tinyMCE.activeEditor.getContent();
+            document.getElementById("preview-category").innerText = category;
+            document.getElementById("preview-headline").innerText = headline;
+            document.getElementById("preview-image").src = URL.createObjectURL(image);
+            document.getElementById("preview-report").innerHTML = report;
+            document.getElementById("dimmer").classList.remove("d-none");
+        });
+
+        document.getElementById("close-preview").addEventListener('click',()=>{
+            document.getElementById("dimmer").classList.add("d-none");
+        })
+    </script>
 </body>
 </html>
