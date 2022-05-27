@@ -37,3 +37,7 @@ Route::get('/article/{id}', function ($id) use ($articles) {
 });
 
 Route::view('/write-article','write-article')->middleware(['auth','reporter']);
+Route::post('/article', function (\Illuminate\Http\Request $request){
+    //TODO: store article to database
+    return \Illuminate\Support\Facades\Redirect::to('/')->with('success', 'Article is submitted to approval');
+})->name('article.create');

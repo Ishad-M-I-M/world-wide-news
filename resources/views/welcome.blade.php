@@ -47,9 +47,11 @@
             @endif
         </x-navigation>
             <h1 class="text-center">World Wide News</h1>
-            <div class="text-end me-5">
-                <a class="btn btn-success" href="/write-article">Report</a>
-            </div>
+            @if($role == 'reporter')
+                <div class="text-end me-5">
+                    <a class="btn btn-success" href="/write-article">Report</a>
+                </div>
+            @endif
         <hr>
         <div class="row">
             <div class="col-md-8" style="display: flex; flex-direction: row; flex-wrap: wrap">
