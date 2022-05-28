@@ -45,4 +45,4 @@ Route::post('/article', function (\Illuminate\Http\Request $request){
 
 
 //for making views
-Route::view('/auth.admin-login','admin-login');
+Route::view('/admin','admin-login');

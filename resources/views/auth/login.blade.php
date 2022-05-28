@@ -19,4 +19,5 @@
                 <button type="submit" class="btn btn-warning form-control text-white">Submit</button>
             </div>
         </form>
+    <div class="text-center"><a href="/admin" class="text-decoration-none">Admin Login <span class="fs-3">&rarr;</span></a></div>
 </x-guest-layout>
