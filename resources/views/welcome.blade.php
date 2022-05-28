@@ -406,6 +406,8 @@
         @auth
             @if($role == 'reporter')
                 <a href="{{ url('/dashboard') }}" class="btn btn-secondary me-1">Dashboard</a>
+            @elseif($role == 'admin')
+                <a href="{{ url('/admin-panel') }}" class="btn btn-warning me-1">Admin Panel</a>
             @endif
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

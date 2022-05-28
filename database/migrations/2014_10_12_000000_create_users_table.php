@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('contact');
-            $table->string('nic');
+            $table->string('contact')->nullable();
+            $table->string('nic')->nullable();
             $table->enum('role', ['admin', 'reporter', 'reader'])->default('reader');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

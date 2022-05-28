@@ -17,7 +17,7 @@
 
 </head>
 <body>
-    
+
     <x-navigation>
 
         <form method="POST" action="{{ route('logout') }}">
@@ -48,58 +48,41 @@
                     <th scope="col">Date</th>
                     <th scope="col">Personnel</th>
                     <th scope="col">Category</th>
-                    <th scope="col">Word Count</th>
-                    <th scope="col">Image Size (MB)</th>
-                    <th scope="col">Reporter's Country</th>
-                    <th scope="col"><i class="fa-solid fa-triangle-exclamation fa-xl"></i></th>
-                    <th scope="col">Note</th>
-                    <th scope="col"><i class="fa-solid fa-arrow-rotate-right fa-xl"></i></th>
+{{--                    <th scope="col">Word Count</th>--}}
+{{--                    <th scope="col">Image Size (MB)</th>--}}
+{{--                    <th scope="col">Reporter's Country</th>--}}
+{{--                    <th scope="col"><i class="fa-solid fa-triangle-exclamation fa-xl"></i></th>--}}
+{{--                    <th scope="col">Note</th>--}}
+{{--                    <th scope="col"><i class="fa-solid fa-arrow-rotate-right fa-xl"></i></th>--}}
                     <th scope="col">Action</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <th scope="row"><a href="#">Ashesh Tournement</a></th>
-                    <td>2021-01-06</td>
-                    <td>Charles</td>
-                    <td>Sports</td>
-                    <td>756</td>
-                    <td>20</td>
-                    <td>England</td>
-                    <td></td>
-                    <td>Any Note ny Admin</td>
-                    <td></td>
-                    <td><i class="fa-solid fa-check-circle fa-xl" style="color:green"></i></td>
-                    </tr>
+                @foreach($articles as $article)
 
                     <tr>
-                    <th scope="row"><a href="#">Barack Obama</a></th>
-                    <td>2021-01-06</td>
-                    <td>Mike</td>
-                    <td>Politics</td>
-                    <td>800</td>
-                    <td>14</td>
-                    <td>America</td>
-                    <td></td>
-                    <td>Any Note ny Admin</td>
-                    <td></td>
-                    <td><i class="fa-solid fa-ellipsis fa-xl"></i></td>
+                    <th scope="row"><a href="{{"/article-admin-view/".$article['id']}}">{{$article['headline']}}</a></th>
+                    <td>{{$article['reported_at']}}</td>
+                    <td>{{$article['reporter']}}</td>
+                    <td>{{$article['category']}}</td>
+{{--                    <td>756</td>--}}
+{{--                    <td>20</td>--}}
+{{--                    <td>England</td>--}}
+{{--                    <td></td>--}}
+{{--                    <td>Any Note ny Admin</td>--}}
+{{--                    <td></td>--}}
+                    <td>
+                        @if($article['status'] == 'Approved')
+                            <i class="fa-solid fa-check-circle fa-xl" style="color:green"></i>
+                        @elseif($article['status'] == 'Pending')
+                            <i class="fa-solid fa-ellipsis fa-xl"></i>
+                        @else
+                            <i class="fa-solid fa-circle-xmark fa-xl" style="color:red"></i>
+                        @endif
+                    </td>
                     </tr>
-
-                    <tr>
-                    <th scope="row"><a href="#">Indian Oil</a></th>
-                    <td>2021-01-06</td>
-                    <td>Arvinth</td>
-                    <td>Science</td>
-                    <td>1500</td>
-                    <td>13</td>
-                    <td>India</td>
-                    <td></td>
-                    <td>Any Note ny Admin</td>
-                    <td></td>
-                    <td><i class="fa-solid fa-circle-xmark fa-xl" style="color:red"></i> </td>
-                    </tr>
+                @endforeach
                 </tbody>
 
             </table>

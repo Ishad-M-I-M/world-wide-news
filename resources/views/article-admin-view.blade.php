@@ -56,7 +56,7 @@
         <div class="row" id="media">
             <div class="col-2"></div>
             <div class="col-8" style="text-align:center">
-                <img src="{{ URL::to('/assets/articlePic.png') }}" alt="photo">
+                <img src="{{ url('/storage/article_images/'.$image) }}" alt="photo" width="400rem">
             </div>
             <div class="col-2"></div>
         </div>
@@ -65,7 +65,7 @@
             <div class="col-2"></div>
             <div class="col-8">
                 <p>
-                    {{$report}}
+                    {!! $report !!}
                 </p>
             </div>
             <div class="col-2"></div>
@@ -74,9 +74,18 @@
         <div class="row" id="buttons">
             <div class="col-2"></div>
             <div class="col-8 d-flex justify-content-evenly align-items-start">
-                <button type="button" class="btn btn-success"><i class="fa-solid fa-check-circle fa-xl" style="color:white"></i>   Approve</button>
-                <button type="button" class="btn btn-danger"><i class="fa-solid fa-circle-xmark fa-xl" style="color:white"></i>   Reject</button>
-                <button type="button" class="btn btn-warning" style="color:white"><i class="fa-solid fa-ellipsis fa-xl" style="color:white"></i>   Keep</button>
+                <form method="post" action="{{url()->current()."/Approved"}}">
+                    @csrf
+                    <button type="submit" class="btn btn-success"><i class="fa-solid fa-check-circle fa-xl" style="color:white"></i>   Approve</button>
+                </form>
+                <form method="post" action="{{url()->current()."/Rejected"}}">
+                    @csrf
+                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-circle-xmark fa-xl" style="color:white"></i>   Reject</button>
+                </form>
+                <form method="post" action="{{url()->current()."/Pending"}}">
+                    @csrf
+                    <button type="submit" class="btn btn-warning" style="color:white"><i class="fa-solid fa-ellipsis fa-xl" style="color:white"></i>   Keep</button>
+                </form>
             </div>
             <div class="col-2"></div>
         </div>

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,10 @@ $categories = ['Politics', 'Sports', 'Entertainment', 'Business'];
 
 Route::get('/', function () use ($categories){
     $articles = [];
-    foreach ( \App\Models\article::all() as $article){
-        //TODO: filer by published articles after implementing admin
-        $articles[] = $article->attributesToArray();
+    foreach (\App\Models\article::all() as $article){
+        $article = $article->attributesToArray();
+        if($article['status'] == "Approved")
+            $articles[] = $article;
     }
 
     $articlesByCategories = [];
@@ -40,8 +42,9 @@ require __DIR__.'/auth.php';
 Route::get('/article/{id}', function ($id) {
     $articles = [];
     foreach (\App\Models\article::all() as $article){
-        //TODO: filer by published articles after implementing admin
-        $articles[] = $article->attributesToArray();
+        $article = $article->attributesToArray();
+        if($article['status'] == "Approved")
+            $articles[] = $article;
     }
     $index = array_search($id, array_column($articles, 'id'));
     if ($index === false){
@@ -65,14 +68,33 @@ Route::get('/write-article',function (\Illuminate\Http\Request $request) use ($c
 Route::post('/article', [\App\Http\Controllers\ArticleController::class, 'store'])->name('article.store');
 
 
-Route::view('/admin-panel','admin-panel');
+Route::get('/admin-panel',function (){
+    $articles = [];
+    foreach (\App\Models\article::all() as $article){
+        $article->attributesToArray();
+        $article['reporter'] = DB::table('users')->where(['id'=>$article['reporter_id']])->get('name')->first()->name;
+        $articles[] = $article;
+    }
+    return view('admin-panel', ['articles'=> $articles]);
+})->middleware(['auth', 'admin']);
 
-// Route::view('/article-admin-view', 'article-admin-view');
-
-Route::get('/article-admin-view/{id}', function ($id) use ($articles) {
+Route::get('/article-admin-view/{id}', function ($id) {
+    $articles = [];
+    foreach (\App\Models\article::all() as $article){
+        $articles[] = $article->attributesToArray();
+    }
     $index = array_search($id, array_column($articles, 'id'));
     if ($index === false){
         abort(404);
     }
     return view('article-admin-view',$articles[$index]);
-});
+})->middleware(['auth', 'admin']);
+
+Route::post('/article-admin-view/{id}/{action}', function ($id, $action){
+    if(DB::table('articles')->where(['id'=> $id])->update(['status'=> $action])) {
+        return redirect('admin-panel')->with('success', 'Article successfully'.$action);
+    }
+    else{
+        return redirect('admin-panel')->with('success', 'Article update aborted');
+    }
+})->middleware(['auth', 'admin']);
