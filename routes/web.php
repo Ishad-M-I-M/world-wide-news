@@ -64,3 +64,15 @@ Route::get('/write-article',function (\Illuminate\Http\Request $request) use ($c
 
 Route::post('/article', [\App\Http\Controllers\ArticleController::class, 'store'])->name('article.store');
 
+
+Route::view('/admin-panel','admin-panel');
+
+// Route::view('/article-admin-view', 'article-admin-view');
+
+Route::get('/article-admin-view/{id}', function ($id) use ($articles) {
+    $index = array_search($id, array_column($articles, 'id'));
+    if ($index === false){
+        abort(404);
+    }
+    return view('article-admin-view',$articles[$index]);
+});
