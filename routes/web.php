@@ -12,14 +12,23 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// TODO: load from database
-$articles = [['id'=> 1, 'headline'=> 'Article Headline 1', 'report' => 'this is a test article for make sure view is rendering as expected. Some extra sentences to get the text to be wrapped up in article card in welcome screen'],
-    ['id'=> 2, 'headline'=> 'Article Headline 2', 'report' => 'this is a test article for make sure view is rendering as expected.'],
-    ['id'=> 3, 'headline'=> 'Article Headline 3', 'report' => 'this is a test article for make sure view is rendering as expected.'],
-    ['id'=> 4, 'headline'=> 'Article Headline 4', 'report' => 'this is a test article for make sure view is rendering as expected.']];
 
-Route::get('/', function () use ($articles) {
-    return view('welcome',['articles'=> $articles, 'role' => \Illuminate\Support\Facades\Auth::user()->role??'guest']);
+$categories = ['Politics', 'Sports', 'Entertainment', 'Business'];
+
+Route::get('/', function () use ($categories){
+    $articles = [];
+    foreach ( \App\Models\article::all() as $article){
+        //TODO: filer by published articles after implementing admin
+        $articles[] = $article->attributesToArray();
+    }
+
+    $articlesByCategories = [];
+    foreach ($categories as $category){
+        $articlesByCategories[$category] = array_filter($articles, function ($article) use ($category){
+            return $article['category'] === $category;
+        });
+    }
+    return view('welcome',['articlesByCategories'=> $articlesByCategories, 'role' => \Illuminate\Support\Facades\Auth::user()->role??'guest']);
 });
 
 Route::get('/dashboard', function () {
@@ -28,13 +37,29 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/article/{id}', function ($id) use ($articles) {
+Route::get('/article/{id}', function ($id) {
+    $articles = [];
+    foreach (\App\Models\article::all() as $article){
+        //TODO: filer by published articles after implementing admin
+        $articles[] = $article->attributesToArray();
+    }
     $index = array_search($id, array_column($articles, 'id'));
     if ($index === false){
         abort(404);
     }
     return view('article',$articles[$index]);
 });
+Route::get('/article', [\App\Http\Controllers\ArticleController::class, 'index'])->name('article.index');
 
-Route::view('/write-article','write-article')->middleware(['auth','reporter'])->name('article.create');
+Route::get('/write-article',function (\Illuminate\Http\Request $request) use ($categories){
+    $articles = [];
+    foreach (\App\Models\article::all() as $article){
+        $article = $article->attributesToArray();
+        if($article['reporter_id'] === $request->user()->id){
+            $articles[] = $article;
+        }
+    }
+    return view('write-article',['categories' => $categories, 'articles'=> $articles]);
+})->middleware(['auth','reporter'])->name('article.create');
+
 Route::post('/article', [\App\Http\Controllers\ArticleController::class, 'store'])->name('article.store');

@@ -1,5 +1,10 @@
 @props(['headline'=>'', 'status'=>'', 'editUrl'=>''])
-<div style="border: solid black 0.02rem" class="p-2">
-    <h4>{{$headline}}</h4>
-    <p class="text-secondary">{{$status}} <a href="{{$editUrl}}" class="ms-5"><i class="fa-solid fa-pen"></i></a></p>
+<div style="border: solid rgb(200,200,200) 0.02rem" class="row">
+    <div class="col-10">
+        <h5>{{$headline}}</h5>
+        <p class="text-secondary">{{$status}} </p>
+    </div>
+    <div class="col-2 pt-3">
+        <a href="{{$editUrl}}"><i class="fa-solid fa-pen"></i></a>
+    </div>
 </div>

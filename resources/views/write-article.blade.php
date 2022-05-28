@@ -10,7 +10,7 @@
 </head>
 <body>
     <x-navigation>
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('logout') }}" >
             @csrf
 
             <a class="btn btn-secondary me-1" href="{{route('logout')}}"
@@ -22,7 +22,7 @@
     </x-navigation>
 
     <div class="p-2">
-        <form method="post" enctype="multipart/form-data" action={{route('article.store')}} >
+        <form method="post" enctype="multipart/form-data" novalidate action={{route('article.store')}}>
             @csrf
         <div class="row text-center">
             <div class="p-6 col-2 d-none d-md-inline d-lg-inline d-xxl-inline">
@@ -37,7 +37,7 @@
                 <span>
                     <button class="btn btn-primary btn-sm" type="button" id="preview"><i class="fa fa-eye p1"></i>Preview</button>
                     <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-upload p-1"></i>Publish</button>
-                    <button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash-can p-1"></i>Discard</button>
+                    <button class="btn btn-danger btn-sm" type="reset"><i class="fa fa-trash-can p-1"></i>Discard</button>
                 </span>
             </div>
         </div>
@@ -46,9 +46,13 @@
             <div class="col-3 container" style="border-right:2px solid grey;">
                 <h5 class="text-center">Your articles</h5>
                 <br>
-                <x-article.list-view headline="Ashesh tournament" status="Published"></x-article.list-view>
-                <x-article.list-view headline="Barack Obama" status="Draft"></x-article.list-view>
-                <x-article.list-view headline="Ashesh tournament" status="Pending"></x-article.list-view>
+                @if(count($articles) > 0)
+                    @foreach($articles as $article)
+                        <x-article.list-view :headline="$article['headline']" :status="$article['status']"></x-article.list-view>
+                    @endforeach
+                @else
+                    <p>No articles yet</p>
+                @endif
             </div>
 
             <div class="col-9 container">
@@ -64,16 +68,15 @@
                     <div class="mb-3">
                         <label for="category" class="form-label">Select a category</label>
                         <select id="category" name="category" class="form-control">
-                            <option value="Politics">Politics</option>
-                            <option value="Sports">Sports</option>
-                            <option value="Entertainment">Entertainment</option>
-                            <option value="Business">Business</option>
+                            @foreach($categories as $category)
+                                <option value="{{$category}}">{{$category}}</option>
+                            @endforeach
                         </select>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="headline">Headline</label>
-                        <input class="form-control" type="text" name="headline" id="headline" placeholder="">
+                        <input class="form-control" type="text" name="headline" id="headline" required placeholder="">
                     </div>
                     <div class="mb-3">
 
@@ -81,7 +84,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="image" class="form-label">Image</label>
-                        <input type="file" name="image" id="image" class="form-control" accept="image/jpeg,image/gif,image/png">
+                        <input type="file" name="image" id="image" class="form-control" required accept="image/jpeg,image/gif,image/png">
                     </div>
             </div>
 
@@ -90,10 +93,10 @@
     </div>
 
     <div id="dimmer" class="bg-opacity-75 bg-black d-none" style="position: fixed; top: 0; left: 0; z-index: 100;width: 100vw; height: 100vh">
-        <div class="container bg-white rounded-2 mt-3" style="width: 60vw; height: 90vh;">
+        <div class="container bg-white rounded-2 mt-3 overflow-auto" style="width: 60vw; height: 90vh;">
             <div  class="text-end fs-2">
                 <span id="close-preview" style="cursor: pointer" >&Cross;</span>
-                <p class="text-start fs-5" style="margin-top: 2rem;" id="preview-category"></p>
+                <p class="text-start fs-5" style="margin-top: -2rem;" id="preview-category"></p>
             </div>
             <div class="container overflow-auto mb-3" style="width: 100%; height: 100%">
                 <h2 id="preview-headline" class="text-center"></h2>
@@ -113,7 +116,9 @@
             const report = tinyMCE.activeEditor.getContent();
             document.getElementById("preview-category").innerText = category;
             document.getElementById("preview-headline").innerText = headline;
-            document.getElementById("preview-image").src = URL.createObjectURL(image);
+            if(image){
+                document.getElementById("preview-image").src = URL.createObjectURL(image);
+            }
             document.getElementById("preview-report").innerHTML = report;
             document.getElementById("dimmer").classList.remove("d-none");
         });
