@@ -1,4 +1,4 @@
-<div class="container shadow p-3 mb-5 bg-body rounded" style="width: 30rem; height: 20rem; background:linear-gradient(transparent 2rem, rgb(150,150,150));">
+<div class="container shadow p-3 mb-5 bg-body rounded" style="width: 30rem; height: 20rem;">
     <h3>{{$headline}}</h3>
     <div class="text-center">
         <img src="{{url('storage/article_images/'.$image)}}" style="height: 8rem">

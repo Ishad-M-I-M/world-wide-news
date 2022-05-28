@@ -6,6 +6,7 @@ use App\Models\article;
 use App\Http\Requests\StorearticleRequest;
 use App\Http\Requests\UpdatearticleRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -79,11 +80,19 @@ class ArticleController extends Controller
      *
      * @param  \App\Http\Requests\UpdatearticleRequest  $request
      * @param  \App\Models\article  $article
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdatearticleRequest $request, article $article)
     {
-        //
+        $article['headline'] = $request->input('headline');
+        $article['report'] = $request->input('report');
+        $article['category'] = $request->input('category');
+        DB::table('articles')->where(['id'=> $request->input('id')])->update([
+            'headline'=> $request->input('headline'),
+            'report' => $request->input('report'),
+            'category' => $request->input('category')
+        ]);
+        return redirect()->route('article.create')->with('success', 'Article is edited successfully');
     }
 
     /**

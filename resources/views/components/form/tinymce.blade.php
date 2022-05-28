@@ -10,5 +10,5 @@
     });
 </script>
 <label class="form-label" for="{{$id}}">{{$label}}</label>
-<textarea id="{{$id}}" name="{{$name}}" required></textarea>
+<textarea id="{{$id}}" name="{{$name}}" required>{{$slot}}</textarea>
 

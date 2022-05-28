@@ -65,8 +65,24 @@ Route::get('/write-article',function (\Illuminate\Http\Request $request) use ($c
     return view('write-article',['categories' => $categories, 'articles'=> $articles]);
 })->middleware(['auth','reporter'])->name('article.create');
 
-Route::post('/article', [\App\Http\Controllers\ArticleController::class, 'store'])->name('article.store');
+Route::post('/article', [\App\Http\Controllers\ArticleController::class, 'store'])->middleware(['auth','reporter'])->name('article.store');
 
+Route::get('/article/edit/{id}' , function (\Illuminate\Http\Request $request,$id) use ($categories){
+    $articles = [];
+    foreach (\App\Models\article::all() as $article){
+        $article = $article->attributesToArray();
+        if($article['reporter_id'] === $request->user()->id){
+            $articles[] = $article;
+        }
+    }
+    $index = array_search($id, array_column($articles, 'id'));
+    if ($index === false){
+        abort(404);
+    }
+    return view('write-article',['categories' => $categories, 'articles'=> $articles,'article_edit'=>$articles[$index]]);
+})->middleware(['auth','reporter'])->name('article.update');
+
+Route::post('/article/edit/{id}',[\App\Http\Controllers\ArticleController::class, 'update'])->middleware(['auth','reporter']);
 
 Route::get('/admin-panel',function (){
     $articles = [];

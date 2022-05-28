@@ -6,7 +6,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @include('partials.bootstrap')
-    <title>New Article</title>
+    @isset($article_edit)
+        <title>Edit Article</title>
+    @else
+        <title>New Article</title>
+    @endisset
 </head>
 <body>
     <x-navigation>
@@ -22,8 +26,17 @@
     </x-navigation>
 
     <div class="p-2">
-        <form method="post" enctype="multipart/form-data" novalidate action={{route('article.store')}}>
+        <form method="post" enctype="multipart/form-data" novalidate
+        @isset($article_edit)
+            action={{url()->current()}}
+        @else
+            action={{route('article.store')}}
+        @endisset
+        >
             @csrf
+            @isset($article_edit)
+                <input hidden name="id" value="{{$article_edit['id']}}">
+            @endisset
         <div class="row text-center">
             <div class="p-6 col-2 d-none d-md-inline d-lg-inline d-xxl-inline">
                 <x-back-link/>
@@ -36,8 +49,12 @@
             <div class="p-2 col-md-3" id="publish-btn">
                 <span>
                     <button class="btn btn-primary btn-sm" type="button" id="preview"><i class="fa fa-eye p1"></i>Preview</button>
-                    <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-upload p-1"></i>Publish</button>
-                    <button class="btn btn-danger btn-sm" type="reset"><i class="fa fa-trash-can p-1"></i>Discard</button>
+                    @isset($article_edit)
+                        <button class="btn btn-success btn-sm" type="submit"><i class="fa-solid fa-floppy-disk p-1"></i>Save</button>
+                    @else
+                        <button class="btn btn-success btn-sm" type="submit"><i class="fa fa-upload p-1"></i>Publish</button>
+                        <button class="btn btn-danger btn-sm" type="reset"><i class="fa fa-trash-can p-1"></i>Discard</button>
+                    @endisset
                 </span>
             </div>
         </div>
@@ -48,7 +65,7 @@
                 <br>
                 @if(count($articles) > 0)
                     @foreach($articles as $article)
-                        <x-article.list-view :headline="$article['headline']" :status="$article['status']"></x-article.list-view>
+                        <x-article.list-view :headline="$article['headline']" :status="$article['status']" :id="$article['id']"></x-article.list-view>
                     @endforeach
                 @else
                     <p>No articles yet</p>
@@ -69,22 +86,40 @@
                         <label for="category" class="form-label">Select a category</label>
                         <select id="category" name="category" class="form-control">
                             @foreach($categories as $category)
-                                <option value="{{$category}}">{{$category}}</option>
+                                @isset($article_edit)
+                                    @if($article_edit['category'] == $category)
+                                        <option value="{{$category}}" selected>{{$category}}</option>
+                                    @else
+                                        <option value="{{$category}}">{{$category}}</option>
+                                    @endif
+                                @endisset
                             @endforeach
                         </select>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="headline">Headline</label>
-                        <input class="form-control" type="text" name="headline" id="headline" required placeholder="">
+                        <input class="form-control" type="text" name="headline" id="headline" required placeholder=""
+                        @isset($article_edit)
+                            value="{{$article_edit['headline']}}"
+                        @endisset
+                        >
                     </div>
                     <div class="mb-3">
 
-                        <x-form.tinymce label="Description" name="report" id="report"></x-form.tinymce>
+                        <x-form.tinymce label="Description" name="report" id="report">
+                            @isset($article_edit)
+                                {{$article_edit['report']}}
+                            @endisset
+                        </x-form.tinymce>
                     </div>
                     <div class="mb-3">
                         <label for="image" class="form-label">Image</label>
-                        <input type="file" name="image" id="image" class="form-control" required accept="image/jpeg,image/gif,image/png">
+                        <input type="file" name="image" id="image" class="form-control" required accept="image/jpeg,image/gif,image/png"
+                        @isset($article_edit)
+                            disabled
+                        @endisset
+                        >
                     </div>
             </div>
 
@@ -112,13 +147,18 @@
         document.getElementById("preview").addEventListener('click', ()=>{
             const category = document.getElementById("category").value;
             const headline = document.getElementById("headline").value;
-            const [image] = document.getElementById("image").files;
             const report = tinyMCE.activeEditor.getContent();
             document.getElementById("preview-category").innerText = category;
             document.getElementById("preview-headline").innerText = headline;
-            if(image){
-                document.getElementById("preview-image").src = URL.createObjectURL(image);
-            }
+
+            @isset($article_edit)
+                document.getElementById("preview-image").src = "{{url('/storage/article_images/'.$article_edit['image'])}}"
+            @else
+                const [image] = document.getElementById("image").files;
+                if(image){
+                    document.getElementById("preview-image").src = URL.createObjectURL(image);
+                }
+            @endisset
             document.getElementById("preview-report").innerHTML = report;
             document.getElementById("dimmer").classList.remove("d-none");
         });
