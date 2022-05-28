@@ -4,8 +4,8 @@
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-        <h1 class="text-center text-white">LOGIN</h1>
-        <form action="{{route('login')}}" method="post">
+        <h1 class="text-center text-white">Admin Login</h1>
+        <form action="{{route('admin.login')}}" method="post">
             @csrf
             <div class="mb-3">
                 <label for="email" class="form-label text-white">Email address</label>

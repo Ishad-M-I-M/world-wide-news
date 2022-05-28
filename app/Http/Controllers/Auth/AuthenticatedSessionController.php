@@ -36,6 +36,21 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
+     * Handle an incoming admin authentication request.
+     *
+     * @param  \App\Http\Requests\Auth\LoginRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeAdmin(LoginRequest $request)
+    {
+        $request->authenticateAdmin();
+
+        $request->session()->regenerate();
+
+        return redirect()->intended(RouteServiceProvider::HOME);
+    }
+
+    /**
      * Destroy an authenticated session.
      *
      * @param  \Illuminate\Http\Request  $request

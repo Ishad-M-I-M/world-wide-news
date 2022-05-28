@@ -64,4 +64,3 @@ Route::get('/write-article',function (\Illuminate\Http\Request $request) use ($c
 
 Route::post('/article', [\App\Http\Controllers\ArticleController::class, 'store'])->name('article.store');
 
-Route::view('/admin','admin-login');
