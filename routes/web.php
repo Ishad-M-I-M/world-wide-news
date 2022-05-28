@@ -63,3 +63,5 @@ Route::get('/write-article',function (\Illuminate\Http\Request $request) use ($c
 })->middleware(['auth','reporter'])->name('article.create');
 
 Route::post('/article', [\App\Http\Controllers\ArticleController::class, 'store'])->name('article.store');
+
+Route::view('/admin','admin-login');
