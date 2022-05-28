@@ -1,6 +1,6 @@
 <x-guest-layout>
     <h1 class="text-center">Register Individual Account </h1>
-    <form action="{{ route('register') }}" method="post">
+    <form action="{{ route('register.reporter') }}" method="post">
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Enter your Name</label>
@@ -9,6 +9,14 @@
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{old('email')}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="contact" class="form-label">Contact Number</label>
+            <input type="tel" class="form-control" id="contact" name="contact" placeholder="Contact Number" value="{{old('contact')}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="nic" class="form-label">NIC</label>
+            <input type="text" class="form-control" id="nic" name="nic" placeholder="NIC" value="{{old('contact')}}" required>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
@@ -35,5 +43,4 @@
             <button type="submit" class="btn btn-warning form-control text-white">Submit</button>
         </div>
     </form>
-    <div class="text-center"><a href={{route('register.reporter')}} class="text-decoration-none">Register as a reporter <span class="fs-3">&rarr;</span></a></div>
 </x-guest-layout>
