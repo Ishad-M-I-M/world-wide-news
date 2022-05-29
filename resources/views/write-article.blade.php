@@ -153,12 +153,21 @@
             document.getElementById("preview-category").innerText = category;
             document.getElementById("preview-headline").innerText = headline;
 
+            if(headline === "" || report === "") {
+                alert("Please enter a headline or/and description ");
+                return;
+            }
+
             @isset($article_edit)
                 document.getElementById("preview-image").src = "{{url('/storage/article_images/'.$article_edit['image'])}}"
             @else
                 const [image] = document.getElementById("image").files;
                 if(image){
                     document.getElementById("preview-image").src = URL.createObjectURL(image);
+                }
+                else{
+                    alert("Please select an image");
+                    return;
                 }
             @endisset
             document.getElementById("preview-report").innerHTML = report;
