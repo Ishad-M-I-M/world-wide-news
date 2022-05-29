@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\article;
+use App\Models\Article;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ArticlePolicy
@@ -25,10 +25,10 @@ class ArticlePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\article  $article
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, article $article)
+    public function view(User $user, Article $article)
     {
         //
     }
@@ -48,10 +48,10 @@ class ArticlePolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\article  $article
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, article $article)
+    public function update(User $user, Article $article)
     {
         //
     }
@@ -60,10 +60,10 @@ class ArticlePolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\article  $article
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, article $article)
+    public function delete(User $user, Article $article)
     {
         //
     }
@@ -72,10 +72,10 @@ class ArticlePolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\article  $article
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, article $article)
+    public function restore(User $user, Article $article)
     {
         //
     }
@@ -84,10 +84,10 @@ class ArticlePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\article  $article
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, article $article)
+    public function forceDelete(User $user, Article $article)
     {
         //
     }

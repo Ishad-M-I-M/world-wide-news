@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\article;
+use App\Models\Article;
 use App\Http\Requests\StorearticleRequest;
 use App\Http\Requests\UpdatearticleRequest;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +17,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        dd(article::all());
+        dd(Article::all());
     }
 
     /**
@@ -38,7 +38,7 @@ class ArticleController extends Controller
      */
     public function store(StorearticleRequest $request)
     {
-        $data = new article();
+        $data = new Article();
 
         $file= $request->file('image');
         $filename= date('YmdHi').$file->getClientOriginalName();
@@ -56,10 +56,10 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\article  $article
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(article $article)
+    public function show(Article $article)
     {
         //
     }
@@ -67,10 +67,10 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\article  $article
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(article $article)
+    public function edit(Article $article)
     {
         //
     }
@@ -79,10 +79,10 @@ class ArticleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdatearticleRequest  $request
-     * @param  \App\Models\article  $article
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdatearticleRequest $request, article $article)
+    public function update(UpdatearticleRequest $request, Article $article)
     {
         $article['headline'] = $request->input('headline');
         $article['report'] = $request->input('report');
@@ -98,10 +98,10 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\article  $article
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(article $article)
+    public function destroy(Article $article)
     {
         //
     }
