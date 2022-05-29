@@ -39,7 +39,7 @@
             @endisset
         <div class="row text-center">
             <div class="p-6 col-2 d-none d-md-inline d-lg-inline d-xxl-inline">
-                <x-back-link/>
+                <x-back-link></x-back-link>
             </div>
 
             <div class="p-2 col-md-7" >
@@ -92,6 +92,8 @@
                                     @else
                                         <option value="{{$category}}">{{$category}}</option>
                                     @endif
+                                @else
+                                    <option value="{{$category}}">{{$category}}</option>
                                 @endisset
                             @endforeach
                         </select>
