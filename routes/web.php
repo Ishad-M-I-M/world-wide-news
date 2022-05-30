@@ -33,10 +33,6 @@ Route::get('/', function () use ($categories){
     return view('welcome',['articlesByCategories'=> $articlesByCategories, 'role' => \Illuminate\Support\Facades\Auth::user()->role??'guest']);
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'reporter'])->name('dashboard');
-
 require __DIR__.'/auth.php';
 
 Route::get('/article/{id}', function ($id) {
