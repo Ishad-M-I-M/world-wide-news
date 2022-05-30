@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('headline');
-            $table->string('image');
+            $table->binary('image');
             $table->text('report');
             $table->integer('reporter_id')->references('id')->on('users');
             $table->enum('category', ['Politics', 'Sports', 'Entertainment', 'Business']);

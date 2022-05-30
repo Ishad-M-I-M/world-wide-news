@@ -47,8 +47,7 @@ Route::get('/article/{id}', function ($id) {
         abort(404);
     }
     return view('article',$articles[$index]);
-});
-Route::get('/article', [\App\Http\Controllers\ArticleController::class, 'index'])->name('article.index');
+})->middleware(['auth']);
 
 Route::get('/write-article',function (\Illuminate\Http\Request $request) use ($categories){
     $articles = [];
@@ -110,3 +109,7 @@ Route::post('/article-admin-view/{id}/{action}', function ($id, $action){
         return redirect('admin-panel')->with('success', 'Article update aborted');
     }
 })->middleware(['auth', 'admin']);
+
+Route::get('/article/image/{id}', function ($id){
+    return (new \App\Http\Controllers\ArticleController())->getArticleImage($id);
+});

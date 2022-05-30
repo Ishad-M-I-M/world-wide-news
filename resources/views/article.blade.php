@@ -65,7 +65,7 @@
         <div class="row" id="media">
             <div class="col-2"></div>
             <div class="col-8" style="text-align:center">
-                <img src="{{ url('storage/article_images/'.$image) }}" alt="photo" width="400rem">
+                <img src="{{ url('article/image/'.$id) }}" alt="photo" width="400rem">
             </div>
             <div class="col-2"></div>
         </div>

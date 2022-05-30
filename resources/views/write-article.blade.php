@@ -178,7 +178,7 @@
             }
 
             @isset($article_edit)
-                document.getElementById("preview-image").src = "{{url('/storage/article_images/'.$article_edit['image'])}}"
+                document.getElementById("preview-image").src = "{{url('article/image/'.$article_edit['id'])}}"
             @else
                 const [image] = document.getElementById("image").files;
                 if(image){
