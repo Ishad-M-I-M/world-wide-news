@@ -13,8 +13,7 @@
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "tinymce/tinymce": "^6.0",
-        "fakerphp/faker": "^1.9.1"
+        "tinymce/tinymce": "^6.0"
     },
     "require-dev": {
         "laravel/breeze": "^1.9",
