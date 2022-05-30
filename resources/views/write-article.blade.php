@@ -58,9 +58,28 @@
                 </span>
             </div>
         </div>
-
+            <div class="accordion d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none" id="accordionArticles">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="articles">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Your Articles
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="articles" data-bs-parent="#accordionArticles">
+                        <div class="accordion-body">
+                            @if(count($articles) > 0)
+                                @foreach($articles as $article)
+                                    <x-article.list-view :headline="$article['headline']" :status="$article['status']" :id="$article['id']"></x-article.list-view>
+                                @endforeach
+                            @else
+                                <p>No articles yet</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
         <div class="row m-2">
-            <div class="col-3 container" style="border-right:2px solid grey;">
+            <div class="col-3 container d-none d-lg-block d-xl-block d-xxl-block" style="border-right:2px solid grey;">
                 <h5 class="text-center">Your articles</h5>
                 <br>
                 @if(count($articles) > 0)
