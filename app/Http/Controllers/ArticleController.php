@@ -45,7 +45,7 @@ class ArticleController extends Controller
             'headline'  => 'required',
             'report' => 'required',
             'category' => 'required',
-            'image' => 'required|image|max:64'
+            'image' => 'required|image|max:256'
         ]);
 
         $data = new Article();
@@ -95,7 +95,7 @@ class ArticleController extends Controller
             'headline'  => 'required',
             'report' => 'required',
             'category' => 'required',
-            'image' => 'required|image|max:64'
+            'image' => 'required|image|max:256'
         ]);
 
 
@@ -106,7 +106,7 @@ class ArticleController extends Controller
             'headline'=> $request->input('headline'),
             'report' => $request->input('report'),
             'category' => $request->input('category'),
-            'image' => $image
+            'image' => file_get_contents($file)
         ]);
         return redirect()->route('article.create')->with('success', 'Article is edited successfully');
     }

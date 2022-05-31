@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -16,7 +17,6 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('headline');
-            $table->binary('image');
             $table->text('report');
             $table->integer('reporter_id')->references('id')->on('users');
             $table->enum('category', ['Politics', 'Sports', 'Entertainment', 'Business']);
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->timestamp('published at')->nullable();
             $table->timestamps();
         });
+        DB::statement("ALTER TABLE articles ADD image MEDIUMBLOB");
     }
 
     /**
