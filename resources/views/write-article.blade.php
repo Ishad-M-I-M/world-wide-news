@@ -163,7 +163,8 @@
     </div>
 
     <script>
-
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
         @isset($article_edit)
             document.getElementById("image-uploaded").src = "{{url("article/image/".$article_edit['id'])}}";
         @endisset

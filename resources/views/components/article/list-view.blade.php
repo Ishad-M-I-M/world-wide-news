@@ -5,8 +5,9 @@
         <p class="text-secondary">{{$status}} </p>
     </div>
     <div class="col-2 pt-3">
+        <a href="{{"/article/".$id}}" data-bs-toggle="tooltip" title="Preview"><i class="fa-solid fa-eye"></i></a>
         @if($status != "Approved")
-        <a href="{{"/article/edit/".$id}}"><i class="fa-solid fa-pen"></i></a>
+        <a href="{{"/article/edit/".$id}}" data-bs-toggle="tooltip" title="Edit"><i class="fa-solid fa-pen"></i></a>
         @endif
     </div>
 </div>
