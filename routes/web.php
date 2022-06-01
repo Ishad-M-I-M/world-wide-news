@@ -103,7 +103,11 @@ Route::get('/article-admin-view/{id}', function ($id) {
 
 Route::post('/article-admin-view/{id}/{action}', function ($id, $action){
     if(DB::table('articles')->where(['id'=> $id])->update(['status'=> $action])) {
-        return redirect('admin-panel')->with('success', 'Article successfully'.$action);
+        if($action === "Approved") {
+            $time = new DateTime();
+            DB::table('articles')->where(['id' => $id])->update(['published at' => $time->format("Y-m-d H:m:s")]);
+        }
+        return redirect('admin-panel')->with('success', 'Article successfully '.$action);
     }
     else{
         return redirect('admin-panel')->with('success', 'Article update aborted');
