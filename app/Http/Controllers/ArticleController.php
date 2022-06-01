@@ -95,19 +95,27 @@ class ArticleController extends Controller
             'headline'  => 'required',
             'report' => 'required',
             'category' => 'required',
-            'image' => 'required|image|max:256'
+            'image' => 'image|max:256'
         ]);
 
 
         $file= $request->file('image');
-//        $image = Image::make($file);
+        if($file){
+            DB::table('articles')->where(['id'=> $request->input('id')])->update([
+                'headline'=> $request->input('headline'),
+                'report' => $request->input('report'),
+                'category' => $request->input('category'),
+                'image' => file_get_contents($file)
+            ]);
+        }
+        else{
+            DB::table('articles')->where(['id'=> $request->input('id')])->update([
+                'headline'=> $request->input('headline'),
+                'report' => $request->input('report'),
+                'category' => $request->input('category')
+            ]);
+        }
 
-        DB::table('articles')->where(['id'=> $request->input('id')])->update([
-            'headline'=> $request->input('headline'),
-            'report' => $request->input('report'),
-            'category' => $request->input('category'),
-            'image' => file_get_contents($file)
-        ]);
         return redirect()->route('article.create')->with('success', 'Article is edited successfully');
     }
 
@@ -128,8 +136,8 @@ class ArticleController extends Controller
         $file = Image::make($image->image);
         $file->encode('jpeg');
 
-        $response = Response::make($file->encode('jpeg'));
-        $response->header('Content-Type', 'image/jpeg');
+        $response = Response::make($file->encode('png'));
+        $response->header('Content-Type', 'image/png');
 
         return $response;
     }

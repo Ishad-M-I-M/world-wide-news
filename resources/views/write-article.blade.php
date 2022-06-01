@@ -135,12 +135,10 @@
                         </x-form.tinymce>
                     </div>
                     <div class="mb-3">
+                        <img id="image-uploaded" src="{{url("/assets/default-image.jpg")}}" width="100rem">
+                        <br>
                         <label for="image" class="form-label">Image</label>
-                        <input type="file" name="image" id="image" class="form-control" required accept="image/jpeg,image/gif,image/png"
-                        @isset($article_edit)
-                            disabled
-                        @endisset
-                        >
+                        <input type="file" name="image" id="image" class="form-control" required accept="image/jpeg,image/gif,image/png">
                     </div>
             </div>
 
@@ -165,6 +163,16 @@
     </div>
 
     <script>
+
+        @isset($article_edit)
+            document.getElementById("image-uploaded").src = "{{url("article/image/".$article_edit['id'])}}";
+        @endisset
+        document.getElementById("image").addEventListener("change",()=>{
+            const [image] = document.getElementById("image").files;
+            if(image){
+                document.getElementById("image-uploaded").src = URL.createObjectURL(image);
+            }
+        });
         document.getElementById("preview").addEventListener('click', ()=>{
             const category = document.getElementById("category").value;
             const headline = document.getElementById("headline").value;
@@ -177,18 +185,7 @@
                 return;
             }
 
-            @isset($article_edit)
-                document.getElementById("preview-image").src = "{{url('article/image/'.$article_edit['id'])}}"
-            @else
-                const [image] = document.getElementById("image").files;
-                if(image){
-                    document.getElementById("preview-image").src = URL.createObjectURL(image);
-                }
-                else{
-                    alert("Please select an image");
-                    return;
-                }
-            @endisset
+            document.getElementById("preview-image").src = document.getElementById("image-uploaded").src;
             document.getElementById("preview-report").innerHTML = report;
             document.getElementById("dimmer").classList.remove("d-none");
         });
