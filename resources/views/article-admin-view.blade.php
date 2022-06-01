@@ -43,14 +43,11 @@
             <div class="col-2"></div>
         </div>
 
-        <div id="title" class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-                <h3>
-                    {{$headline}}
-                </h3>
-            </div>
-            <div class="col-2"></div>
+        <div id="title" class="text-center">
+            <h3>
+                {{$headline}}
+            </h3>
+            <p class="fs-6">{{$reported_at}}</p>
         </div>
 
         <div class="row" id="media">
