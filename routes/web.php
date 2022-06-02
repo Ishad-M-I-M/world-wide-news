@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-$categories = ['Politics', 'Sports', 'Entertainment', 'Business'];
+// You can add categories as you wish
+$categories = ['Politics', 'Crimes and Accidents', 'Sports', 'Entertainment', 'Business'];
 
 Route::get('/', function () use ($categories){
     $articles = [];
