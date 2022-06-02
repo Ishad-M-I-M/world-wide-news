@@ -75,9 +75,9 @@ Route::get('/article/edit/{id}' , function (\Illuminate\Http\Request $request,$i
         abort(404);
     }
     return view('write-article',['categories' => $categories, 'articles'=> $articles,'article_edit'=>$articles[$index]]);
-})->middleware(['auth','reporter'])->name('article.update');
+})->middleware(['auth','reporter', 'editable'])->name('article.update');
 
-Route::post('/article/edit/{id}',[\App\Http\Controllers\ArticleController::class, 'update'])->middleware(['auth','reporter']);
+Route::post('/article/edit/{id}',[\App\Http\Controllers\ArticleController::class, 'update'])->middleware(['auth','reporter', 'editable']);
 
 Route::get('/admin-panel',function (){
     $articles = [];
