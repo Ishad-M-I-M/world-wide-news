@@ -19,9 +19,9 @@ class RegisteredUserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function create($categories)
     {
-        return view('auth.register');
+        return view('auth.register',['categories' => $categories]);
     }
 
     /**

@@ -21,13 +21,16 @@
         <div class="mb-3">
             <label for="subscriptions" class="form-label">Subscriptions (Press cmd or ctrl and select for multiple options)</label>
             <select name="subscriptions" id="subscriptions" class="form-control" multiple required>
-                <option value="sport">Sport</option>
-                <option value="politics">Politics</option>
-                <option value="health">Health</option>
-                <option value="weather">Weather</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="local">Local</option>
-                <option value="foreign">Foreign</option>
+{{--                <option value="sport">Sport</option>--}}
+{{--                <option value="politics">Politics</option>--}}
+{{--                <option value="health">Health</option>--}}
+{{--                <option value="weather">Weather</option>--}}
+{{--                <option value="entertainment">Entertainment</option>--}}
+{{--                <option value="local">Local</option>--}}
+{{--                <option value="foreign">Foreign</option>--}}
+                @foreach($categories as $category)
+                    <option value="{{$category}}">{{$category}}</option>
+                    @endforeach
             </select>
         </div>
         <div class="mb-3 form-check">
