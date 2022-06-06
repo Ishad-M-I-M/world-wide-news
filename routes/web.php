@@ -109,10 +109,14 @@ Route::post('/article-admin-view/{id}/{action}', function ($id, $action){
             DB::table('articles')->where(['id' => $id])->update(['published at' => $time->format("Y-m-d H:m:s")]);
         }
         $category = DB::table('articles')->where(['id'=> $id])->value('category');
+        $category = DB::table('articles')->where(['id'=> $id])->value('category');
         $users = \App\Models\User::all();
         foreach ($users as $user){
             if(in_array($category, $user->subscriptions)){
-                $user->notify(new \App\Notifications\ArticleApproved($category));
+                $user->notify(new \App\Notifications\ArticleApproved([
+                    'user' => $user,
+                    'category' => $category,
+                    'id' => $id]));
             }
         }
         return redirect('admin-panel')->with('success', 'Article successfully '.$action);

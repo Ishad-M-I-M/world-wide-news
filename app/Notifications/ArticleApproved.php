@@ -16,9 +16,11 @@ class ArticleApproved extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($info)
     {
-        //
+        $this->user = $info->user;
+        $this->category = $info->category;
+        $this->id = $info->id;
     }
 
     /**
@@ -40,10 +42,14 @@ class ArticleApproved extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = url('/article/'.$this->id);
+ 
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->greeting('Hello, '.$this->user->name.'!')
+            ->line('A new article has been published under '.$this->category.' category')
+            ->line('You can view the article by following the link below')
+            ->action('View Article', $url)
+            ->line('Thank you for using World Wide News!');
     }
 
     /**
