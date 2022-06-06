@@ -18,6 +18,18 @@
             <label for="repeat-password" class="form-label">Repeat Password</label>
             <input type="password" class="form-control" id="repeat-password" name="repeat-password" placeholder="Repeat Password" required>
         </div>
+        <div class="mb-3">
+            <label for="subscriptions" class="form-label">Subscriptions</label>
+            <select name="subscriptions" id="subscriptions" class="form-control" multiple required>
+                <option value="sport">Sport</option>
+                <option value="politics">Politics</option>
+                <option value="health">Health</option>
+                <option value="weather">Weather</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="local">Local</option>
+                <option value="foreign">Foreign</option>
+            </select>
+        </div>
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="agree" name="agree" value="true" required>
             <label class="form-check-label" for="agree">I agree terms and conditions</label>
