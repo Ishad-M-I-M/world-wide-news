@@ -19,7 +19,7 @@
             <input type="password" class="form-control" id="repeat-password" name="repeat-password" placeholder="Repeat Password" required>
         </div>
         <div class="mb-3">
-            <label for="subscriptions" class="form-label">Subscriptions</label>
+            <label for="subscriptions" class="form-label">Subscriptions (Press cmd or ctrl and select for multiple options)</label>
             <select name="subscriptions" id="subscriptions" class="form-control" multiple required>
                 <option value="sport">Sport</option>
                 <option value="politics">Politics</option>
