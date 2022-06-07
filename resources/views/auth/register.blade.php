@@ -20,7 +20,7 @@
         </div>
         <div class="mb-3">
             <label for="subscriptions" class="form-label">Subscriptions (Press cmd or ctrl and select for multiple options)</label>
-            <select name="subscriptions" id="subscriptions" class="form-control" multiple required>
+            <select name="subscriptions[]" id="subscriptions" class="form-control" multiple required>
 {{--                <option value="sport">Sport</option>--}}
 {{--                <option value="politics">Politics</option>--}}
 {{--                <option value="health">Health</option>--}}
