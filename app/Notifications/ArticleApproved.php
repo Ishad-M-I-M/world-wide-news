@@ -48,6 +48,7 @@ class ArticleApproved extends Notification
         $url = url('/article/'.$this->id);
 
         return (new MailMessage)
+            ->subject('New Article Published!')
             ->greeting('Hello, '.$this->user->name.'!')
             ->line('A new article has been published under '.$this->category.' category')
             ->line('You can view the article by following the link below')
