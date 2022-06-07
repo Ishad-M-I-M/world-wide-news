@@ -46,6 +46,7 @@ php artisan serve
 * Software Architecture Document : https://docs.google.com/document/d/14cB7BNPPhqm1wGgn_HsCcrfOAkjdL8Nd
 * User Manual : https://docs.google.com/document/d/1cu3S__xca4_5Gj53hnYCaHIsiEmPDYEoUbVvt__5iKs
 * Instruction manual for deploying / hosting : https://docs.google.com/document/d/1-l7W86mmpqIh9B6RYe7B-N-HarIJR-74ysS3isPFNGs
+* Instruction manual for execution : https://docs.google.com/document/d/14nhphPq0wxF0w4G-29p4o_wKYO6fsMUbk62bTD0MHaI
 ## Built with :
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
