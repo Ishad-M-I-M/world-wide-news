@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -10,7 +11,8 @@ use Illuminate\Notifications\Notification;
 class ArticleApproved extends Notification
 {
     use Queueable;
-
+    private User $user;
+    private string $category;
     /**
      * Create a new notification instance.
      *
@@ -18,9 +20,10 @@ class ArticleApproved extends Notification
      */
     public function __construct($info)
     {
-        $this->user = $info->user;
-        $this->category = $info->category;
-        $this->id = $info->id;
+//        dd($info);
+        $this->user = $info['user'];
+        $this->category = $info['category'];
+        $this->id = $info['id'];
     }
 
     /**
@@ -43,7 +46,7 @@ class ArticleApproved extends Notification
     public function toMail($notifiable)
     {
         $url = url('/article/'.$this->id);
- 
+
         return (new MailMessage)
             ->greeting('Hello, '.$this->user->name.'!')
             ->line('A new article has been published under '.$this->category.' category')
