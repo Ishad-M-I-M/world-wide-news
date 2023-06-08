@@ -2,7 +2,7 @@ name: Laravel
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "heroku-deployment" ]
   pull_request:
     branches: [ "master" ]
 
